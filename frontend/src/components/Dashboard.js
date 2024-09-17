@@ -94,8 +94,15 @@ function Dashboard() {
           <strong>Username:</strong> {user.username}
         </p>
         <p>
+          <strong>Email:</strong> {user.email}
+        </p>
+        <p>
+          <strong>Bio:</strong> {user.profile.bio}
+        </p>
+        <p>
           <strong>Joined on:</strong> {user.createdAt}
         </p>
+        <Link to='/edit-profile'>Edit Profile</Link>
       </section>
 
       <section>

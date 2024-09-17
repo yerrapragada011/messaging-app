@@ -4,6 +4,7 @@ import { useNavigate, Link } from 'react-router-dom'
 function Register() {
   const [username, setUsername] = useState('')
   const [password, setPassword] = useState('')
+  const [email, setEmail] = useState('')
   const [error, setError] = useState(null)
   const navigate = useNavigate()
 
@@ -18,7 +19,8 @@ function Register() {
         },
         body: JSON.stringify({
           username,
-          password
+          password,
+          email
         })
       })
 
@@ -38,20 +40,32 @@ function Register() {
       <form onSubmit={handleSubmit}>
         <h2>Register</h2>
         {error && <p style={{ color: 'red' }}>{error}</p>}
-        <input
-          type='text'
-          value={username}
-          onChange={(e) => setUsername(e.target.value)}
-          placeholder='Username'
-          required
-        />
-        <input
-          type='password'
-          value={password}
-          onChange={(e) => setPassword(e.target.value)}
-          placeholder='Password'
-          required
-        />
+        <div style={{ display: 'flex', flexDirection: 'column' }}>
+          <label>
+            Username:
+            <input
+              type='text'
+              value={username}
+              onChange={(e) => setUsername(e.target.value)}
+            />
+          </label>
+          <label>
+            Password:
+            <input
+              type='password'
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+            />
+          </label>
+          <label>
+            Email:
+            <input
+              type='email'
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+            />
+          </label>
+        </div>
         <button type='submit'>Register</button>
       </form>
       <section>

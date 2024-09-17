@@ -31,4 +31,25 @@ const getMessages = async (req, res) => {
   }
 }
 
-module.exports = { getProfile, getMessages }
+const updateProfile = async (req, res) => {
+  const { email, bio } = req.body
+  try {
+    const updatedUser = await prisma.user.update({
+      where: { id: req.user.id },
+      data: { email }
+    })
+
+    const updatedProfile = await prisma.profile.upsert({
+      where: { userId: req.user.id },
+      update: { bio },
+      create: { userId: req.user.id, bio }
+    })
+
+    res.json({ user: updatedUser, profile: updatedProfile })
+  } catch (error) {
+    console.error('Error updating profile:', error)
+    res.status(500).json({ message: 'Internal server error' })
+  }
+}
+
+module.exports = { getProfile, getMessages, updateProfile }

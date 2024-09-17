@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react'
-import { useNavigate } from 'react-router-dom'
+import { useNavigate, Link } from 'react-router-dom'
 
 function SendMessage() {
   const [recipients, setRecipients] = useState([])
@@ -90,6 +90,9 @@ function SendMessage() {
         </div>
         <button type='submit'>Send</button>
       </form>
+      <section>
+        <Link to='/profile'>Go back</Link>
+      </section>
     </div>
   )
 }

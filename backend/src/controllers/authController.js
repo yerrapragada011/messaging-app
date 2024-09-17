@@ -5,7 +5,11 @@ const { PrismaClient } = require('@prisma/client')
 const prisma = new PrismaClient()
 
 const register = async (req, res) => {
-  const { username, password } = req.body
+  const { username, password, email } = req.body
+
+  if (!email) {
+    return res.status(400).json({ message: 'Email is required' })
+  }
 
   const existingUser = await prisma.user.findUnique({
     where: { username }
@@ -19,7 +23,11 @@ const register = async (req, res) => {
 
   try {
     await prisma.user.create({
-      data: { username, password: hashedPassword }
+      data: {
+        username,
+        password: hashedPassword,
+        email
+      }
     })
     res.redirect('/auth/login')
   } catch (error) {
