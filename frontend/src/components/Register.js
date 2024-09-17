@@ -7,12 +7,13 @@ function Register() {
   const [email, setEmail] = useState('')
   const [error, setError] = useState(null)
   const navigate = useNavigate()
+  const apiUrl = process.env.REACT_APP_BACKEND_API_URL
 
   const handleSubmit = async (e) => {
     e.preventDefault()
 
     try {
-      const response = await fetch('/register', {
+      const response = await fetch(`${apiUrl}/register`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json'
