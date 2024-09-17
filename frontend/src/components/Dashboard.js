@@ -6,12 +6,12 @@ function Dashboard() {
   const [messages, setMessages] = useState([])
   const [error, setError] = useState(null)
   const navigate = useNavigate()
-
+  const apiUrl = process.env.REACT_APP_BACKEND_API_URL
 
   useEffect(() => {
     const fetchUserData = async () => {
       try {
-        const userResponse = await fetch(`/profile`, {
+        const userResponse = await fetch(`${apiUrl}/profile`, {
           credentials: 'include'
         })
         if (userResponse.ok) {
@@ -23,7 +23,7 @@ function Dashboard() {
           setError('Failed to load user profile')
         }
 
-        const messagesResponse = await fetch(`/profile/messages`, {
+        const messagesResponse = await fetch(`${apiUrl}/profile/messages`, {
           credentials: 'include'
         })
         if (messagesResponse.ok) {
@@ -41,7 +41,7 @@ function Dashboard() {
     }
 
     fetchUserData()
-  }, [])
+  }, [apiUrl])
 
   const handleLogout = () => {
     localStorage.removeItem('user')
@@ -55,7 +55,7 @@ function Dashboard() {
 
     if (confirmDelete) {
       try {
-        const response = await fetch(`/send-message/${messageId}`, {
+        const response = await fetch(`${apiUrl}/send-message/${messageId}`, {
           method: 'DELETE',
           credentials: 'include'
         })

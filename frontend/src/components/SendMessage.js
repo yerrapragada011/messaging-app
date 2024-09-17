@@ -7,11 +7,12 @@ function SendMessage() {
   const [messageContent, setMessageContent] = useState('')
   const [error, setError] = useState(null)
   const navigate = useNavigate()
+  const apiUrl = process.env.REACT_APP_BACKEND_API_URL
 
   useEffect(() => {
     const fetchRecipients = async () => {
       try {
-        const response = await fetch(`/send-message/users`, {
+        const response = await fetch(`${apiUrl}/send-message/users`, {
           credentials: 'include'
         })
         if (response.ok) {
@@ -26,13 +27,13 @@ function SendMessage() {
     }
 
     fetchRecipients()
-  }, [])
+  }, [apiUrl])
 
   const handleSendMessage = async (e) => {
     e.preventDefault()
 
     try {
-      const response = await fetch(`/send-message`, {
+      const response = await fetch(`${apiUrl}/send-message`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json'
