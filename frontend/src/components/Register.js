@@ -8,6 +8,7 @@ function Register() {
   const [error, setError] = useState(null)
   const navigate = useNavigate()
   const apiUrl = process.env.REACT_APP_BACKEND_API_URL
+  console.log(`API URL: ${apiUrl}`)
 
   const handleSubmit = async (e) => {
     e.preventDefault()
