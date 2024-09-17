@@ -6,11 +6,26 @@ const prisma = new PrismaClient()
 
 const register = async (req, res) => {
   const { username, password } = req.body
-  const hashedPassword = await bcrypt.hash(password, 10)
-  await prisma.user.create({
-    data: { username, password: hashedPassword }
+
+  const existingUser = await prisma.user.findUnique({
+    where: { username }
   })
-  res.redirect('/login')
+
+  if (existingUser) {
+    return res.status(400).json({ message: 'Username already exists' })
+  }
+
+  const hashedPassword = await bcrypt.hash(password, 10)
+
+  try {
+    await prisma.user.create({
+      data: { username, password: hashedPassword }
+    })
+    res.redirect('/auth/login')
+  } catch (error) {
+    console.error('Error creating user:', error)
+    res.status(500).json({ message: 'Internal server error' })
+  }
 }
 
 const login = async (req, res, next) => {
@@ -25,6 +40,7 @@ const login = async (req, res, next) => {
 
     req.logIn(user, (err) => {
       if (err) {
+        console.error('Error logging in:', err)
         return next(err)
       }
       return res.status(200).json({ message: 'Login successful', user })
