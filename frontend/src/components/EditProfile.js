@@ -7,12 +7,11 @@ function EditProfile() {
   const [bio, setBio] = useState('')
   const [error, setError] = useState(null)
   const navigate = useNavigate()
-  const apiUrl = process.env.REACT_APP_BACKEND_API_URL
 
   useEffect(() => {
     const fetchUserData = async () => {
       try {
-        const response = await fetch(`${apiUrl}/profile`, {
+        const response = await fetch(`/profile`, {
           credentials: 'include'
         })
         if (response.ok) {
@@ -32,13 +31,13 @@ function EditProfile() {
     }
 
     fetchUserData()
-  }, [apiUrl])
+  }, [])
 
   const handleSubmit = async (event) => {
     event.preventDefault()
 
     try {
-      const response = await fetch(`${apiUrl}/profile`, {
+      const response = await fetch(`/profile`, {
         method: 'PUT',
         headers: {
           'Content-Type': 'application/json'
