@@ -12,8 +12,8 @@ function App() {
   return (
     <Router>
       <Routes>
-        <Route path='/auth/login' element={<Login />} />
-        <Route path='/auth/register' element={<Register />} />
+        <Route path='/' element={<Login />} />
+        <Route path='/register' element={<Register />} />
 
         <Route element={<ProtectedRoute isAuthenticated={isAuthenticated} />}>
           <Route path='/profile' element={<Dashboard />} />

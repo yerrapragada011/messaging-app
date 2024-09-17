@@ -44,7 +44,34 @@ function Dashboard() {
 
   const handleLogout = () => {
     localStorage.removeItem('user')
-    navigate('/auth/login')
+    navigate('/')
+  }
+
+  const handleDeleteMessage = async (messageId) => {
+    const confirmDelete = window.confirm(
+      'Are you sure you want to delete this message?'
+    )
+
+    if (confirmDelete) {
+      try {
+        const response = await fetch(`/send-message/${messageId}`, {
+          method: 'DELETE',
+          credentials: 'include'
+        })
+
+        if (response.ok) {
+          setMessages((prevMessages) =>
+            prevMessages.filter((message) => message.id !== messageId)
+          )
+          alert('Message deleted successfully!')
+        } else {
+          const errorData = await response.json()
+          setError(errorData.message || 'Failed to delete message')
+        }
+      } catch (err) {
+        setError('Something went wrong')
+      }
+    }
   }
 
   if (error) {
@@ -67,9 +94,6 @@ function Dashboard() {
           <strong>Username:</strong> {user.username}
         </p>
         <p>
-          <strong>Email:</strong> {user.email}
-        </p>{' '}
-        <p>
           <strong>Joined on:</strong> {user.createdAt}
         </p>
       </section>
@@ -87,6 +111,9 @@ function Dashboard() {
                 <strong>Message:</strong> {message.content} <br />
                 <strong>Sent on:</strong>{' '}
                 {new Date(message.timestamp).toLocaleString()}
+                <button onClick={() => handleDeleteMessage(message.id)}>
+                  Delete
+                </button>
               </li>
             ))}
           </ul>
@@ -94,7 +121,7 @@ function Dashboard() {
       </section>
 
       <section>
-        <Link to="/send-message">Send a Message</Link>
+        <Link to='/send-message'>Send a Message</Link>
       </section>
     </div>
   )

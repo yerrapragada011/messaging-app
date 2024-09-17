@@ -54,4 +54,23 @@ const userList = async (req, res) => {
   }
 }
 
-module.exports = { sendMessage, userList }
+const deleteMessage = async (req, res) => {
+  const { messageId } = req.params
+
+  try {
+    const message = await prisma.message.delete({
+      where: {
+        id: parseInt(messageId, 10)
+      }
+    })
+
+    res
+      .status(200)
+      .json({ message: 'Message deleted successfully', data: message })
+  } catch (error) {
+    console.error('Error deleting message:', error)
+    res.status(500).json({ message: 'Failed to delete message' })
+  }
+}
+
+module.exports = { sendMessage, userList, deleteMessage }

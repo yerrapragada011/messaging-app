@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { useNavigate } from 'react-router-dom'
+import { useNavigate, Link } from 'react-router-dom'
 
 function Login() {
   const [username, setUsername] = useState('')
@@ -11,7 +11,7 @@ function Login() {
     e.preventDefault()
 
     try {
-      const response = await fetch('/auth/login', {
+      const response = await fetch('/login', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json'
@@ -36,25 +36,30 @@ function Login() {
   }
 
   return (
-    <form onSubmit={handleSubmit}>
-      <h2>Login</h2>
-      {error && <p style={{ color: 'red' }}>{error}</p>}
-      <input
-        type='text'
-        value={username}
-        onChange={(e) => setUsername(e.target.value)}
-        placeholder='Username'
-        required
-      />
-      <input
-        type='password'
-        value={password}
-        onChange={(e) => setPassword(e.target.value)}
-        placeholder='Password'
-        required
-      />
-      <button type='submit'>Login</button>
-    </form>
+    <div>
+      <form onSubmit={handleSubmit}>
+        <h2>Login</h2>
+        {error && <p style={{ color: 'red' }}>{error}</p>}
+        <input
+          type='text'
+          value={username}
+          onChange={(e) => setUsername(e.target.value)}
+          placeholder='Username'
+          required
+        />
+        <input
+          type='password'
+          value={password}
+          onChange={(e) => setPassword(e.target.value)}
+          placeholder='Password'
+          required
+        />
+        <button type='submit'>Login</button>
+      </form>
+      <section>
+        <Link to='/register'>Register</Link>
+      </section>
+    </div>
   )
 }
 
