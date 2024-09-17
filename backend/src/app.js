@@ -1,6 +1,8 @@
 require('dotenv').config()
 const express = require('express')
 const cors = require('cors')
+const { Pool } = require('pg')
+const pgSession = require('connect-pg-simple')(session)
 const bodyParser = require('body-parser')
 const path = require('path')
 const session = require('express-session')
@@ -15,8 +17,16 @@ app.use(cors({ origin: 'https://messaging-app-mauve.vercel.app' }))
 app.use(bodyParser.urlencoded({ extended: true }))
 app.use(bodyParser.json())
 
+const pool = new Pool({
+  connectionString: process.env.DATABASE_URL
+})
+
 app.use(
   session({
+    store: new pgSession({
+      pool: pool,
+      tableName: 'session'
+    }),
     secret: 'secret',
     resave: false,
     saveUninitialized: false
