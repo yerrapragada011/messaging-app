@@ -14,7 +14,17 @@ const messageRoutes = require('./routes/messageRoutes')
 const app = express()
 
 app.use(
-  cors({ origin: 'https://messaging-app-mauve.vercel.app', credentials: true })
+  cors({
+    origin: 'https://messaging-app-mauve.vercel.app',
+    credentials: true,
+    allowedHeaders: [
+      'Content-Type',
+      'Authorization',
+      'Access-Control-Allow-Origin',
+      'Access-Control-Allow-Methods',
+      'Access-Control-Allow-Headers'
+    ]
+  })
 )
 app.use(bodyParser.urlencoded({ extended: true }))
 app.use(bodyParser.json())
