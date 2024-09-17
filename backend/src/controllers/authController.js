@@ -29,7 +29,7 @@ const register = async (req, res) => {
         email
       }
     })
-    res.redirect('/login')
+    res.redirect('/')
   } catch (error) {
     console.error('Error creating user:', error)
     res.status(500).json({ message: 'Internal server error' })
