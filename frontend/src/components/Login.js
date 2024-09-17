@@ -24,12 +24,10 @@ function Login() {
 
       if (response.ok) {
         const userData = await response.json()
-        console.log('User Data:', userData)
         localStorage.setItem('user', JSON.stringify(userData))
         navigate('/profile')
       } else {
         const errorData = await response.json()
-        console.log('Error Data:', errorData)
         setError(errorData.message || 'Login failed')
       }
     } catch (err) {

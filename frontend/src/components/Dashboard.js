@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react'
-import { useNavigate } from 'react-router-dom'
+import { useNavigate, Link } from 'react-router-dom'
 
 function Dashboard() {
   const [user, setUser] = useState(null)
@@ -91,6 +91,10 @@ function Dashboard() {
             ))}
           </ul>
         )}
+      </section>
+
+      <section>
+        <Link to="/send-message">Send a Message</Link>
       </section>
     </div>
   )

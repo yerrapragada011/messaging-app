@@ -6,6 +6,7 @@ const session = require('express-session')
 const passport = require('./passport')
 const authRoutes = require('./routes/authRoutes')
 const profileRoutes = require('./routes/profileRoutes')
+const messageRoutes = require('./routes/messageRoutes')
 
 const app = express()
 
@@ -26,6 +27,7 @@ app.use(passport.session())
 
 app.use('/auth', authRoutes)
 app.use('/profile', profileRoutes)
+app.use('/send-message', messageRoutes)
 
 const PORT = process.env.PORT || 8000
 
