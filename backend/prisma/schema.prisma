@@ -42,7 +42,7 @@ model Profile {
   user      User    @relation(fields: [userId], references: [id])
 }
 
-model Session {
+model session {
   id        Int      @id @default(autoincrement())
   sid       String   @unique
   sess      Json
