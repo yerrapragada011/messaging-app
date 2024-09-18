@@ -20,9 +20,11 @@ app.use(
     credentials: true
   })
 )
-app.use(cookieParser('secret'))
+app.use(cookieParser())
 app.use(bodyParser.urlencoded({ extended: true }))
 app.use(bodyParser.json())
+
+app.enable('trust proxy')
 
 const pool = new Pool({
   connectionString: process.env.DATABASE_URL
@@ -49,8 +51,6 @@ app.use(
 
 app.use(passport.initialize())
 app.use(passport.session())
-
-app.set('trust proxy', 1)
 
 app.use('/', authRoutes)
 app.use('/profile', profileRoutes)
