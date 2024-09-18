@@ -43,7 +43,7 @@ app.use(
       httpOnly: true,
       sameSite: 'none',
       maxAge: 24 * 60 * 60 * 1000,
-      domain: 'https://messaging-app-mauve.vercel.app'
+      domain: 'https://messaging-app-production-800a.up.railway.app'
     }
   })
 )
