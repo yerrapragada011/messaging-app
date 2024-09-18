@@ -12,7 +12,7 @@ function Dashboard() {
     const fetchUserData = async () => {
       try {
         const userResponse = await fetch(`${apiUrl}/profile`, {
-          credentials: 'include'
+          credentials: 'same-origin'
         })
         if (userResponse.ok) {
           const userData = await userResponse.json()
@@ -24,7 +24,7 @@ function Dashboard() {
         }
 
         const messagesResponse = await fetch(`${apiUrl}/profile/messages`, {
-          credentials: 'include'
+          credentials: 'same-origin'
         })
         if (messagesResponse.ok) {
           const messagesData = await messagesResponse.json()
