@@ -28,7 +28,6 @@ const pool = new Pool({
   connectionString: process.env.DATABASE_URL
 })
 
-app.set('trust proxy', 1)
 app.use(
   session({
     store: new pgSession({
@@ -49,6 +48,8 @@ app.use(
 
 app.use(passport.initialize())
 app.use(passport.session())
+
+app.set('trust proxy', 1)
 
 app.use('/', authRoutes)
 app.use('/profile', profileRoutes)
