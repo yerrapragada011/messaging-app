@@ -51,8 +51,9 @@ const login = async (req, res, next) => {
         console.error('Error logging in:', err)
         return next(err)
       }
+      console.log('Session after login:', req.session);
+      console.log('Cookie headers:', req.get('set-cookie'));
       res.redirect('/profile')
-      // return res.status(200).json({ message: 'Login successful', user })
     })
   })(req, res, next)
 }

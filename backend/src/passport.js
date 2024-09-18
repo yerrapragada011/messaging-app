@@ -6,23 +6,19 @@ const { PrismaClient } = require('@prisma/client')
 const prisma = new PrismaClient()
 
 passport.use(
-  new LocalStrategy(
-    { usernameField: 'username', passwordField: 'password' },
-    async (username, password, done) => {
-      try {
-        const user = await prisma.user.findUnique({ where: { username } })
-        if (!user) return done(null, false, { message: 'Incorrect username.' })
+  new LocalStrategy(async (username, password, done) => {
+    try {
+      const user = await prisma.user.findUnique({ where: { username } })
+      if (!user) return done(null, false, { message: 'Incorrect username.' })
 
-        const isValid = await bcrypt.compare(password, user.password)
-        if (!isValid)
-          return done(null, false, { message: 'Incorrect password.' })
+      const isValid = await bcrypt.compare(password, user.password)
+      if (!isValid) return done(null, false, { message: 'Incorrect password.' })
 
-        return done(null, user)
-      } catch (err) {
-        return done(err)
-      }
+      return done(null, user)
+    } catch (err) {
+      return done(err)
     }
-  )
+  })
 )
 
 passport.serializeUser((user, done) => done(null, user.id))

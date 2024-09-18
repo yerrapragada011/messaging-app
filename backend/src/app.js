@@ -13,12 +13,7 @@ const messageRoutes = require('./routes/messageRoutes')
 
 const app = express()
 
-app.use(
-  cors({
-    origin: 'https://messaging-app-mauve.vercel.app',
-    credentials: true
-  })
-)
+app.use(cors())
 app.use(bodyParser.urlencoded({ extended: true }))
 app.use(bodyParser.json())
 
@@ -26,7 +21,7 @@ const pool = new Pool({
   connectionString: process.env.DATABASE_URL
 })
 
-app.set('trust proxy', 1)
+// app.set('trust proxy', 1)
 app.use(
   session({
     store: new pgSession({
