@@ -20,7 +20,7 @@ app.use(
     credentials: true
   })
 )
-app.use(cookieParser())
+app.use(cookieParser('secret'))
 app.use(bodyParser.urlencoded({ extended: true }))
 app.use(bodyParser.json())
 
