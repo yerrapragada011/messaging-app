@@ -26,6 +26,7 @@ const pool = new Pool({
   connectionString: process.env.DATABASE_URL
 })
 
+app.set('trust proxy', 1)
 app.use(
   session({
     store: new pgSession({
@@ -34,10 +35,11 @@ app.use(
     }),
     secret: 'secret',
     resave: false,
-    saveUninitialized: false,
+    saveUninitialized: true,
     cookie: {
-      secure: process.env.NODE_ENV === 'production',
+      secure: true,
       httpOnly: true,
+      sameSite: 'none',
       maxAge: 24 * 60 * 60 * 1000
     }
   })
