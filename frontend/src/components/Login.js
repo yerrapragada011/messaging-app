@@ -24,8 +24,6 @@ function Login() {
       })
 
       if (response.ok) {
-        const userData = await response.json()
-        localStorage.setItem('user', JSON.stringify(userData))
         navigate('/profile')
       } else {
         const errorData = await response.json()

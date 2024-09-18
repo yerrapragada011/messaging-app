@@ -8,15 +8,13 @@ import EditProfile from './components/EditProfile'
 import ProtectedRoute from './components/ProtectedRoute'
 
 function App() {
-  const isAuthenticated = !!localStorage.getItem('user')
-
   return (
     <Router>
       <Routes>
         <Route path='/' element={<Login />} />
         <Route path='/register' element={<Register />} />
 
-        <Route element={<ProtectedRoute isAuthenticated={isAuthenticated} />}>
+        <Route element={<ProtectedRoute />}>
           <Route path='/profile' element={<Dashboard />} />
           <Route path='/send-message' element={<SendMessage />} />
           <Route path='/edit-profile' element={<EditProfile />} />

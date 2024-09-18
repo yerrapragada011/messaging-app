@@ -58,4 +58,19 @@ const login = async (req, res, next) => {
   })(req, res, next)
 }
 
-module.exports = { register, login }
+const logout = async (req, res) => {
+  req.logout((err) => {
+    if (err) {
+      return res.status(500).json({ message: 'Logout failed' })
+    }
+    req.session.destroy((err) => {
+      if (err) {
+        return res.status(500).json({ message: 'Failed to destroy session' })
+      }
+      res.clearCookie('connect.sid')
+      res.json({ message: 'Logged out successfully' })
+    })
+  })
+}
+
+module.exports = { register, login, logout }

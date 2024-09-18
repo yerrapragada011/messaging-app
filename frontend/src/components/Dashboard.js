@@ -43,9 +43,22 @@ function Dashboard() {
     fetchUserData()
   }, [apiUrl])
 
-  const handleLogout = () => {
-    localStorage.removeItem('user')
-    navigate('/')
+  const handleLogout = async () => {
+    try {
+      const response = await fetch(`${apiUrl}/logout`, {
+        method: 'POST',
+        credentials: 'include'
+      })
+
+      if (response.ok) {
+        navigate('/')
+      } else {
+        const errorData = await response.json()
+        setError(errorData.message || 'Failed to log out')
+      }
+    } catch (err) {
+      setError('Something went wrong')
+    }
   }
 
   const handleDeleteMessage = async (messageId) => {
