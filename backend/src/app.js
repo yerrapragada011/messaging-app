@@ -36,7 +36,7 @@ app.use(
     }),
     secret: 'secret',
     resave: false,
-    saveUninitialized: false,
+    saveUninitialized: true,
     cookie: {
       secure: true,
       httpOnly: true,
