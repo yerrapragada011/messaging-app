@@ -40,10 +40,9 @@ app.use(
     saveUninitialized: false,
     cookie: {
       secure: true,
-      httpOnly: true,
+      httpOnly: false,
       sameSite: 'none',
-      maxAge: 24 * 60 * 60 * 1000,
-      domain: 'https://messaging-app-production-800a.up.railway.app'
+      maxAge: 24 * 60 * 60 * 1000
     }
   })
 )
