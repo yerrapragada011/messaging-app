@@ -98,7 +98,7 @@ function Dashboard() {
           <strong>Email:</strong> {user.email}
         </p>
         <p>
-          <strong>Bio:</strong> {user.profile.bio}
+          <strong>Bio:</strong> {user.profile?.bio || 'No bio available'}
         </p>
         <p>
           <strong>Joined on:</strong> {user.createdAt}
